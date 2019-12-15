@@ -23,6 +23,7 @@ public class Main extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter writer = response.getWriter();
 		writer.println("<a href=/JavaEEProject/Produkty.jsp>Produkty</a><br>");
+		writer.println("<a href=/JavaEEProject/logowanie.jsp>Logowanie</a>");
 		writer.println();
 		if(conn == null){
 			writer.println("Database connection failed!");
