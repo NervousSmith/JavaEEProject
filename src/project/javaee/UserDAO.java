@@ -9,7 +9,7 @@ public class UserDAO {
 	static ResultSet rs = null;
 	
 	public static UserBean login(UserBean bean) {
-		
+
 		Statement stmt = null;
 		
 		String login = bean.getLogin();
@@ -77,6 +77,25 @@ public class UserDAO {
 		         }
 		      }
 
+		return bean;
+	}
+	
+	public static UserBean register(UserBean bean) {
+		
+		Statement stm = null;
+		String login = bean.getLogin();
+		String imie = bean.getImie();
+		String nazwisko = bean.getNazwisko();
+		String pass = bean.getPass();
+		String nr_tel = bean.getNr_tel();
+		String e_mail = bean.getE_mail();
+		String ulica = bean.getUlica();
+		String miasto = bean.getMiasto();
+		String kod_pocztowy = bean.getKod_pocztowy();
+		String nr_domu = bean.getNr_domu();
+		
+		
+		
 		return bean;
 	}
 }
