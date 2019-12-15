@@ -24,7 +24,7 @@ public class UserDAO {
 		   try 
 		      {
 		         currentCon = new DbManager("Dg3jCj0JRD","bHPu8tQZqy").getConnection();
-		         stmt=currentCon.createStatement();
+		         stmt = currentCon.createStatement();
 		         rs = stmt.executeQuery(searchQuery);	        
 		         boolean more = rs.next();
 			       
