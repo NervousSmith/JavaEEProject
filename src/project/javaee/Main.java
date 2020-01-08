@@ -3,9 +3,6 @@ package project.javaee;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,8 +22,8 @@ public class Main extends HttpServlet {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter writer = response.getWriter();
-		writer.println("Hello World!");
-		writer.println("<a href=/JavaEEProject/Produkty.jsp> Produkty</a><br>");
+		writer.println("<a href=/JavaEEProject/Produkty.jsp>Produkty</a><br>");
+		writer.println("<a href=/JavaEEProject/logowanie.jsp>Logowanie</a>");
 		writer.println();
 		if(conn == null){
 			writer.println("Database connection failed!");
