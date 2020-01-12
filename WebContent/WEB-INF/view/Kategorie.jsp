@@ -3,9 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix = "c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
  
+ 
 <html>
    <head>
-      <title>Produkty</title>
+   	  <meta charset="utf-8">
+      <title>Kategorie prduktów</title>
    </head>
 
    <body>
@@ -14,20 +16,22 @@
          user = "Dg3jCj0JRD"  password = "bHPu8tQZqy"/>
  
       <sql:query dataSource = "${snapshot}" var = "result">
-         SELECT nazwa from produkty;
+         SELECT nazwa from kategoria;
       </sql:query>
- 
+      
+      
       <table border="1" align="center" width = "50%" >
          <tr>
             <th>Nazwa</th>
          </tr>
-         
+
          <c:forEach var = "row" items = "${result.rows}">
             <tr>
                <td><c:out value = "${row.nazwa}"/></td>
-            </tr>
+             	</tr>
          </c:forEach>
       </table>
+
  
    </body>
 </html>

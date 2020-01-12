@@ -7,10 +7,10 @@
 <title>Logowanie</title>
 </head>
 <body>
-	<form action=Login method="post">
+	<form action=login method="post">
 		Login: <input type="text" name="login"><br>
 		Hasło: <input type="password" name="password"><br>
-		<input type="submit" value="Zaloguj">
+		<input type="submit" name="Zaloguj" value="Zaloguj">
 	</form>
 </body>
 </html>
