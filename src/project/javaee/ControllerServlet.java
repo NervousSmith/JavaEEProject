@@ -1,7 +1,10 @@
 package project.javaee;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +17,7 @@ import javax.servlet.http.HttpSession;
 		urlPatterns = {
 				"/index",
 				"/login",
-				"/categories",
+				"/category",
 				"/userLogged",
 				}
 )
@@ -45,7 +48,7 @@ public class ControllerServlet extends HttpServlet {
     	String userPath = req.getServletPath();
     	
     	if(userPath.equals("/index")) {
-
+    		listCategories(req, resp);
     	}
     	
     	else if(userPath.equals("/login")) {
@@ -53,6 +56,10 @@ public class ControllerServlet extends HttpServlet {
     	}
     	
     	else if(userPath.equals("/userLogged")) {
+    		
+    	}
+    	
+    	else if(userPath.equals("/category")) {
     		
     	}
     	
@@ -85,4 +92,24 @@ public class ControllerServlet extends HttpServlet {
 			System.out.println(e);
 		}
 	}
+    
+    private void listCategories(HttpServletRequest req, HttpServletResponse resp) {
+    	try {
+    		CategoryDAO dao = new CategoryDAO();
+            List<Category> listCatagory = dao.listCategories();
+            req.setAttribute("listCategory", listCatagory);
+ 
+            RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
+            dispatcher.forward(req, resp);
+ 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
 }
