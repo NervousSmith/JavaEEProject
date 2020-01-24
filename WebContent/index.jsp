@@ -6,24 +6,14 @@
 	<head>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-		<title>Computer Shop</title>
 	</head>
 	<body>
-		<div id="main">
-			<div id="left_menu">
-				<form action=category method="get">
-				<table>
-					<c:forEach items="${listCategory}" var="category">
-	        			<tr>
-	        				<td><option value="${category.id}"><input class="w3-button w3-teal" type="submit" value=${category.name}></option></td>
-	        			</tr>
-	   				</c:forEach>
-	   			</table>
-	   			</form>
-			</div>
-			<div id="show">
-				
-			</div>
+	<jsp:include page="WEB-INF/guestHeader.jsp"/>
+		<div id="main" class="w3-display-middle">
+			
+		Witaj
+		
+		
 		</div>
 	</body>
 </html>

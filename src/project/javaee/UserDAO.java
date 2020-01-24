@@ -1,11 +1,11 @@
 package project.javaee;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class UserDAO {
-	static Connection currentCon = null;
+
+	
 	static ResultSet rs = null;
 	
 	public static UserBean login(UserBean bean) {
@@ -23,10 +23,9 @@ public class UserDAO {
 	                        + "'";
 		   try 
 		      {
-		         currentCon = new DbManager("Dg3jCj0JRD","bHPu8tQZqy").getConnection();
-		         stmt = currentCon.createStatement();
-		         rs = stmt.executeQuery(searchQuery);	        
+		         rs = ControllerServlet.manager.getQuerryResponse(searchQuery);
 		         boolean more = rs.next();
+		         
 			       
 		         if (!more) 
 		         {
@@ -36,6 +35,7 @@ public class UserDAO {
 			        
 		         else if (more) 
 		         {
+		        	 //if()
 		            String firstName = rs.getString("imie");
 		            String lastName = rs.getString("nazwisko");
 			     	
@@ -66,36 +66,21 @@ public class UserDAO {
 		            } catch (Exception e) {}
 		               stmt = null;
 		            }
-			
-		         if (currentCon != null) {
-		            try {
-		               currentCon.close();
-		            } catch (Exception e) {
-		            }
-
-		            currentCon = null;
-		         }
 		      }
 
 		return bean;
 	}
 	
-	public static UserBean register(UserBean bean) {
+	public void register(UserBean bean) {
 		
 		Statement stm = null;
-		String login = bean.getLogin();
-		String imie = bean.getImie();
-		String nazwisko = bean.getNazwisko();
-		String pass = bean.getPass();
-		String nr_tel = bean.getNr_tel();
-		String e_mail = bean.getE_mail();
-		String ulica = bean.getUlica();
-		String miasto = bean.getMiasto();
-		String kod_pocztowy = bean.getKod_pocztowy();
-		String nr_domu = bean.getNr_domu();
+		
+		String Query =
+	               "insert into uzytkownicy ";
+
+	                       
 		
 		
-		
-		return bean;
+
 	}
 }

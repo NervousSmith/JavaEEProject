@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +14,26 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "ControllerServlet",
-		loadOnStartup = 1,
 		urlPatterns = {
-				"/index",
 				"/login",
-				"/category",
-				"/userLogged",
+				"/shop",
+				"/register"
 				}
 )
 public class ControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	static DbManager manager;
+
+	public void init(ServletConfig config) throws ServletException { 
+		super.init(config); 
+		try { 
+			manager = new DbManager();
+		} 
+		catch (Exception e) {
+			
+		}
+	}
        
     @Override
     	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,11 +43,10 @@ public class ControllerServlet extends HttpServlet {
     	if(userPath.equals("/login")) {
     		login(req, resp);
     	}
-    	
-    	else 
-    	{
-    		resp.sendRedirect("Error.jsp");
+    	if(userPath.equals("/register")) {
+    		register(req, resp);
     	}
+    	
 
     	String url = "/WEB-INF/view" + userPath + ".jsp";
     	req.getRequestDispatcher(url).forward(req, resp);
@@ -48,27 +58,18 @@ public class ControllerServlet extends HttpServlet {
     	String userPath = req.getServletPath();
     	
     	if(userPath.equals("/index")) {
-    		listCategories(req, resp);
+    		
     	}
     	
     	else if(userPath.equals("/login")) {
     		
     	}
     	
-    	else if(userPath.equals("/userLogged")) {
-    		
+    	else if(userPath.equals("/shop")) {
+    		listCategories(req, resp);
     	}
     	
-    	else if(userPath.equals("/category")) {
-    		
-    	}
-    	
-    	else 
-    	{
-    		resp.sendRedirect("Error.jsp");
-    	}
-    	
-    	String url = "/WEB-INF/view" + userPath + ".jsp";
+    	String url = "/WEB-INF" + userPath + ".jsp";
     	req.getRequestDispatcher(url).forward(req, resp);
     }	
     
@@ -99,17 +100,30 @@ public class ControllerServlet extends HttpServlet {
             List<Category> listCatagory = dao.listCategories();
             req.setAttribute("listCategory", listCatagory);
  
-            RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
-            dispatcher.forward(req, resp);
+            
  
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        } 
+    }
+    
+    private void register(HttpServletRequest req, HttpServletResponse resp) {
+    	
+    	if(req.getParameter("password").equals(req.getParameter("password2"))) {
+    		UserBean newUser = new UserBean();
+        	newUser.setLogin(req.getParameter("login"));
+        	newUser.setPass(req.getParameter("password"));
+        	newUser.setImie(req.getParameter("imie"));
+        	newUser.setNazwisko(req.getParameter("nazwisko"));
+        	newUser.setE_mail(req.getParameter("e_mail"));
+        	newUser.setNr_tel(req.getParameter("nr_tel"));
+        	newUser.setMiasto(req.getParameter("miasto"));
+        	newUser.setKod_pocztowy(req.getParameter("kod_pocztowy"));
+        	newUser.setUlica(req.getParameter("ulica"));
+        	newUser.setNr_domu(req.getParameter("nr_domu"));
+    	}
+    	else {
+    		
+    	}
     }
 }

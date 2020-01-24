@@ -8,16 +8,18 @@
 <title>Logowanie</title>
 </head>
 <body>
-<div class="w3-container w3-cell w3-cell-middle"> 
+<jsp:include page="guestHeader.jsp"/>
+<div class="w3-display-middle"> 
+
 	<div class="w3-container w3-blue">
   		<h2>Logowanie</h2>
 	</div>
 
 	<form action=login method="post" class="w3-container">
 		<label> Login: </label> 
-		<input class="w3-input type="text" name="login"><br><br>
+		<input class="w3-input" type="text" name="login"><br><br>
 		<label> Hasło: </label> 
-		<input class="w3-input type="password" name="password"><br><br>
+		<input class="w3-input" type="password" name="password"><br><br>
 		<input type="submit" name="Zaloguj" value="Zaloguj" class = "w3-button w3-blue">
 	</form>
 </div>
