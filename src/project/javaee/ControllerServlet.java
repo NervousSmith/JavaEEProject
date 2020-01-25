@@ -16,7 +16,8 @@ import javax.servlet.http.HttpSession;
 				"/login",
 				"/shop",
 				"/register",
-				"/product"
+				"/product",
+				"/checkout"
 				}
 )
 public class ControllerServlet extends HttpServlet {
@@ -143,7 +144,9 @@ public class ControllerServlet extends HttpServlet {
         	
         	try {
         	UserDAO.register(newUser);
-        	req.getRequestDispatcher("index.jsp").forward(req, resp);
+        	HttpSession session = req.getSession(true);
+        	session.setAttribute("currentSessionUser", newUser);
+        	req.getRequestDispatcher("login.jsp").forward(req, resp);
         	}
         	catch (Exception e) {
         		

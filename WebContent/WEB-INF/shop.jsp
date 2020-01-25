@@ -41,32 +41,14 @@
 							<td> <img src="<c:out value="${product.name}"></c:out>" class="w3-border w3-padding" alt="<c:out value="${product.name}"></c:out>"> </td>
 							<td> <c:out value="${product.name}"></c:out></td>
 							<td> <c:out value="${product.price}"></c:out> </td>
-							<td> <input type="button" class="w3-button w3-round-large" onClick="" value="Więcej" name="<c:out value="${product.name}"></c:out>">
+							<td> <input type="button" class="w3-button w3-round-large" value="Więcej" name="<c:out value="${product.name}"></c:out>">
 							<td> <input type="button" class="w3-button w3-round-large" value="Dodaj do koszyka" name="<c:out value="${product.name}"></c:out>"> </td>
 						</tr>	
 				   	</c:forEach>
 				</table>
 			</div>
 		</div>
-		<FORM NAME="form1" METHOD="GET">
-        	<INPUT TYPE="HIDDEN" NAME="product">
-    	</FORM>
-    	<% 
-        if(request.getParameter("buttonName") != null) {
-               session.setAttribute("status", "guest");
-        }
-    	%>
 		<SCRIPT>
-        function addToCart()
-        {
-            document.form1.buttonName.value = "yes";
-            form1.submit();
-        } 
-        function more()
-        {
-        	document.form1.product.value = "yes";
-        	form1.submit();
-        }
         function procki(){
         	document.kategorie.category.value = "2"
         	kategorie.submit();

@@ -9,7 +9,8 @@ import java.sql.Statement;
 public class DbManager {
 
 	private String user, pass;
-	Connection conn;
+	private Connection conn;
+	
 	DbManager(String user, String pass){
 		this.user = user;
 		this.pass = pass;
