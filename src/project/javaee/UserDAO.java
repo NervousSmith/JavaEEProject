@@ -71,16 +71,13 @@ public class UserDAO {
 		return bean;
 	}
 	
-	public void register(UserBean bean) {
-		
-		Statement stm = null;
-		
+	public static void register(UserBean bean) {
 		String Query =
-	               "insert into uzytkownicy ";
-
-	                       
-		
-		
-
+	               "INSERT INTO uzytkownicy (login, pass, imie, nazwisko, nr_tel, ulica, miasto, kod_pocztowy, nr_domu, e_mail) "
+	               + "values('" + bean.getLogin() + "','" + bean.getPass() + "','"  + bean.getImie() + "','"  + bean.getNazwisko() + "','" 
+	            		   + bean.getNr_tel() + "','" + bean.getUlica() + "','" + bean.getMiasto() + "','" + bean.getKod_pocztowy() + "','" +
+	            		   bean.getNr_domu() + "','" + bean.getE_mail() + "')";
+		ControllerServlet.manager.executeUpdate(Query);
+	             
 	}
 }

@@ -109,7 +109,7 @@ public class ControllerServlet extends HttpServlet {
     
     private void register(HttpServletRequest req, HttpServletResponse resp) {
     	
-    	if(req.getParameter("password").equals(req.getParameter("password2"))) {
+    	
     		UserBean newUser = new UserBean();
         	newUser.setLogin(req.getParameter("login"));
         	newUser.setPass(req.getParameter("password"));
@@ -121,9 +121,12 @@ public class ControllerServlet extends HttpServlet {
         	newUser.setKod_pocztowy(req.getParameter("kod_pocztowy"));
         	newUser.setUlica(req.getParameter("ulica"));
         	newUser.setNr_domu(req.getParameter("nr_domu"));
-    	}
-    	else {
-    		
-    	}
+        	
+        	try {
+        	UserDAO.register(newUser);
+        	}
+        	catch (Exception e) {
+        		
+        	}
     }
 }

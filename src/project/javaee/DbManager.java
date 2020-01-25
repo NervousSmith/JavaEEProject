@@ -55,4 +55,16 @@ public class DbManager {
 		}	  
 		return rs;
 	}
+	
+	public void executeUpdate(String query) {
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+			stmt.executeUpdate(query);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	  
+		
+	}
 }
