@@ -18,10 +18,14 @@
 	   </div>
 	   <div class="w3-cell-row">
 		   <div class="w3-cell w3-bar-block" style="width:20%">
-				<form action=shop method="get">
-					<c:forEach items="${listCategory}" var="category">
-				       	<input class="w3-bar-item w3-button w3-cyan" type="submit" value=${category.name}>
-				   	</c:forEach>
+				<form action=shop method="get" name="kategorie">
+					<input class="w3-bar-item w3-button w3-cyan" type="button" value="Procesory" name="procesory" onClick="procki()">
+					<input class="w3-bar-item w3-button w3-cyan" type="button" value="Karty graficzne" name="karty" onClick="karty()">
+					<input class="w3-bar-item w3-button w3-cyan" type="button" value="Plyty glowne" name="plyty" onClick="plytki()">
+					<input class="w3-bar-item w3-button w3-cyan" type="button" value="Pamieci Ram" name="Ram" onClick="ramy()">
+					<input class="w3-bar-item w3-button w3-cyan" type="button" value="Obudowy" name="Obudowy" onClick="obudowy()">
+					<input class="w3-bar-item w3-button w3-cyan" type="button" value="Zasilacze" name="Zasilacze" onClick="zasilacze()">
+					<INPUT TYPE="HIDDEN" NAME="category">
 			   	</form>
 			</div>
 			<div class="w3-container w3-cell">
@@ -31,14 +35,13 @@
 					  <th>Nazwa</th>
 					  <th>Cena</th>
 					  <th></th>
-					  <th></th>
 					</tr>
 					<c:forEach items="${products}" var="product">
 						<tr>
 							<td> <img src="<c:out value="${product.name}"></c:out>" class="w3-border w3-padding" alt="<c:out value="${product.name}"></c:out>"> </td>
 							<td> <c:out value="${product.name}"></c:out></td>
 							<td> <c:out value="${product.price}"></c:out> </td>
-							<td> <input type="button" class="w3-button w3-round-large" onClick="more()" value="Więcej" name="<c:out value="${product.name}"></c:out>">
+							<td> <input type="button" class="w3-button w3-round-large" onClick="" value="Więcej" name="<c:out value="${product.name}"></c:out>">
 							<td> <input type="button" class="w3-button w3-round-large" value="Dodaj do koszyka" name="<c:out value="${product.name}"></c:out>"> </td>
 						</tr>	
 				   	</c:forEach>
@@ -61,8 +64,32 @@
         } 
         function more()
         {
-        	document.form1.buttonName.value = "yes";
+        	document.form1.product.value = "yes";
         	form1.submit();
+        }
+        function procki(){
+        	document.kategorie.category.value = "2"
+        	kategorie.submit();
+        }
+        function karty(){
+        	document.kategorie.category.value = "1"
+        	kategorie.submit();
+        }
+        function plytki(){
+        	document.kategorie.category.value = "3"
+        	kategorie.submit();
+        }
+        function ramy(){
+        	document.kategorie.kategoria.value = "4"
+        	kategorie.submit();
+        }
+        function obudowy(){
+        	document.kategorie.category.value = "5"
+        	kategorie.submit();
+        }
+        function zasilacze(){
+        	document.kategorie.category.value = "6"
+        	kategorie.submit();
         }
     	</SCRIPT>
 	</body>

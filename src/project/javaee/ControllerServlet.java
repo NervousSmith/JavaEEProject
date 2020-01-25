@@ -63,9 +63,10 @@ public class ControllerServlet extends HttpServlet {
     	
     	else if(userPath.equals("/shop")) {
     		listCategories(req, resp);
-    		if(req.getAttributeNames().toString().contains("category"))
+    		if(req.getParameter("category") != null)
     		{
-    			
+    			String cat = req.getParameter("category").toString();
+    			listProducts(req, resp, Integer.parseInt(cat));
     		}
     		else {
     			listProducts(req, resp);
@@ -105,6 +106,12 @@ public class ControllerServlet extends HttpServlet {
     private void listProducts(HttpServletRequest req, HttpServletResponse resp) {
     	ProductDAO dao = new ProductDAO();
     	List<Product> list = dao.listAllProducts();
+    	req.setAttribute("products", list);
+    }
+    
+    private void listProducts(HttpServletRequest req, HttpServletResponse resp, int id) {
+    	ProductDAO dao = new ProductDAO();
+    	List<Product> list = dao.listProducts(id);
     	req.setAttribute("products", list);
     }
     
