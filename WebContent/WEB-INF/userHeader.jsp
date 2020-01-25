@@ -4,15 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<meta charset="UTF-8"></head>
 <body>
 	<header class="w3-container w3-cell w3-teal ">
 		<a href="index.jsp" class="w3-bar-item w3-button">Strona główna</a>	
 		<a href="shop" class="w3-bar-item w3-button">Sklep</a>	
-		<a href="register" class="w3-bar-item w3-button">Zarejestruj</a>	
-  		<a href="login" class="w3-bar-item w3-button">Zaloguj</a>
+  		<div class="w3-dropdown-hover">
+		    <button class="w3-button">Profil</button>
+			<div class="w3-dropdown-content w3-bar-block w3-card-4">
+		   		<a href="#" class="w3-bar-item w3-button">Dane</a>
+		      	<a href="#" class="w3-bar-item w3-button">Zamówienia</a>
+			</div>
+		</div>
   		<a href="cart" class="w3-bar-item w3-button">Koszyk</a>
 	</header>
 </body>

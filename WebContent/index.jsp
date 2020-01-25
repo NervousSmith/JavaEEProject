@@ -8,7 +8,9 @@
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	</head>
 	<body>
-	<jsp:include page="WEB-INF/guestHeader.jsp"/>
+	<div class="w3-cell-row">	
+		<jsp:include page="WEB-INF/headers.jsp"/>
+	</div>
 		<div id="main" class="w3-display-middle">
 			
 		Witaj

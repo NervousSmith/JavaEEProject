@@ -8,8 +8,10 @@
 <title>Logowanie</title>
 </head>
 <body>
-<jsp:include page="guestHeader.jsp"/>
-<div class="w3-display-middle"> 
+<div class="w3-cell-row">	
+	   		<jsp:include page="guestHeader.jsp"/>
+	   </div>
+<div class="w3-cell-row w3-display-middle"> 
 
 	<div class="w3-container w3-blue">
   		<h2>Logowanie</h2>

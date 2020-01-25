@@ -3,8 +3,6 @@ package project.javaee;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +15,8 @@ import javax.servlet.http.HttpSession;
 		urlPatterns = {
 				"/login",
 				"/shop",
-				"/register"
+				"/register",
+				"/product"
 				}
 )
 public class ControllerServlet extends HttpServlet {
@@ -48,7 +47,7 @@ public class ControllerServlet extends HttpServlet {
     	}
     	
 
-    	String url = "/WEB-INF/view" + userPath + ".jsp";
+    	String url = "/WEB-INF" + userPath + ".jsp";
     	req.getRequestDispatcher(url).forward(req, resp);
     
     }
@@ -56,17 +55,25 @@ public class ControllerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	
     	String userPath = req.getServletPath();
+    
     	
-    	if(userPath.equals("/index")) {
-    		
-    	}
-    	
-    	else if(userPath.equals("/login")) {
+    	if(userPath.equals("/login")) {
     		
     	}
     	
     	else if(userPath.equals("/shop")) {
     		listCategories(req, resp);
+    		if(req.getAttributeNames().toString().contains("category"))
+    		{
+    			
+    		}
+    		else {
+    			listProducts(req, resp);
+    		}
+    	}
+    	
+    	else if(userPath.equals("/product")) {
+    		
     	}
     	
     	String url = "/WEB-INF" + userPath + ".jsp";
@@ -85,6 +92,7 @@ public class ControllerServlet extends HttpServlet {
 			if(user.isValid()) {
 				HttpSession session = req.getSession(true);
 				session.setAttribute("currentSessionUser", user);
+				req.getRequestDispatcher("index.jsp").forward(req, resp);
 			}
 			
 		}
@@ -94,13 +102,17 @@ public class ControllerServlet extends HttpServlet {
 		}
 	}
     
+    private void listProducts(HttpServletRequest req, HttpServletResponse resp) {
+    	ProductDAO dao = new ProductDAO();
+    	List<Product> list = dao.listAllProducts();
+    	req.setAttribute("products", list);
+    }
+    
     private void listCategories(HttpServletRequest req, HttpServletResponse resp) {
     	try {
     		CategoryDAO dao = new CategoryDAO();
             List<Category> listCatagory = dao.listCategories();
             req.setAttribute("listCategory", listCatagory);
- 
-            
  
         } catch (SQLException e) {
             e.printStackTrace();
@@ -124,9 +136,11 @@ public class ControllerServlet extends HttpServlet {
         	
         	try {
         	UserDAO.register(newUser);
+        	req.getRequestDispatcher("index.jsp").forward(req, resp);
         	}
         	catch (Exception e) {
         		
         	}
+        	
     }
 }

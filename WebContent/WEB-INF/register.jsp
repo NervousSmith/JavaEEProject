@@ -8,8 +8,10 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-<jsp:include page="guestHeader.jsp"/>
-	<div class="w3-display-middle">
+<div class="w3-cell-row">	
+	   		<jsp:include page="guestHeader.jsp"/>
+</div>
+	<div class="w3-cell-row w3-display-middle">
 	
 		<div class="w3-container w3-red">
   			<h2>Rejestracja</h2>
