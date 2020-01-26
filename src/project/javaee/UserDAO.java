@@ -1,14 +1,14 @@
 package project.javaee;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class UserDAO {
-	static Connection currentCon = null;
+
+	DbManager dbManager = DbManager.getInstance();
 	static ResultSet rs = null;
 	
-	public static UserBean login(UserBean bean) {
+	public UserBean login(UserBean bean) {
 
 		Statement stmt = null;
 		
@@ -23,10 +23,9 @@ public class UserDAO {
 	                        + "'";
 		   try 
 		      {
-		         currentCon = new DbManager("Dg3jCj0JRD","bHPu8tQZqy").getConnection();
-		         stmt = currentCon.createStatement();
-		         rs = stmt.executeQuery(searchQuery);	        
+		         rs = dbManager.getQuerryResponse(searchQuery);
 		         boolean more = rs.next();
+		         
 			       
 		         if (!more) 
 		         {
@@ -36,6 +35,7 @@ public class UserDAO {
 			        
 		         else if (more) 
 		         {
+		        	 //if()
 		            String firstName = rs.getString("imie");
 		            String lastName = rs.getString("nazwisko");
 			     	
@@ -66,36 +66,18 @@ public class UserDAO {
 		            } catch (Exception e) {}
 		               stmt = null;
 		            }
-			
-		         if (currentCon != null) {
-		            try {
-		               currentCon.close();
-		            } catch (Exception e) {
-		            }
-
-		            currentCon = null;
-		         }
 		      }
 
 		return bean;
 	}
 	
-	public static UserBean register(UserBean bean) {
-		
-		Statement stm = null;
-		String login = bean.getLogin();
-		String imie = bean.getImie();
-		String nazwisko = bean.getNazwisko();
-		String pass = bean.getPass();
-		String nr_tel = bean.getNr_tel();
-		String e_mail = bean.getE_mail();
-		String ulica = bean.getUlica();
-		String miasto = bean.getMiasto();
-		String kod_pocztowy = bean.getKod_pocztowy();
-		String nr_domu = bean.getNr_domu();
-		
-		
-		
-		return bean;
+	public void register(UserBean bean) {
+		String Query =
+	               "INSERT INTO uzytkownicy (login, pass, imie, nazwisko, nr_tel, ulica, miasto, kod_pocztowy, nr_domu, e_mail) "
+	               + "values('" + bean.getLogin() + "','" + bean.getPass() + "','"  + bean.getImie() + "','"  + bean.getNazwisko() + "','" 
+	            		   + bean.getNr_tel() + "','" + bean.getUlica() + "','" + bean.getMiasto() + "','" + bean.getKod_pocztowy() + "','" +
+	            		   bean.getNr_domu() + "','" + bean.getE_mail() + "')";
+		dbManager.executeUpdate(Query);
+	             
 	}
 }
