@@ -8,10 +8,11 @@ import java.util.List;
 public class ProductDAO {
 	List<Product> listProducts;
 	ResultSet result;
-		
+	DbManager dbManager = DbManager.getInstance();
+	
 	public List<Product> listAllProducts(){
 		listProducts = new ArrayList<>();
-		result = ControllerServlet.manager.getQuerryResponse("SELECT * FROM produkty");
+		result = dbManager.getQuerryResponse("SELECT * FROM produkty");
 		try {
 			while (result.next()) {
 			    int id = result.getInt("id_produkt");
@@ -29,7 +30,7 @@ public class ProductDAO {
 	
 	public List<Product> listProducts(int id_kategoria){
 		listProducts = new ArrayList<>();
-		result = ControllerServlet.manager.getQuerryResponse("SELECT * FROM produkty WHERE kategoria_id=" + id_kategoria);
+		result = dbManager.getQuerryResponse("SELECT * FROM produkty WHERE kategoria_id=" + id_kategoria);
 		try {
 			while (result.next()) {
 			    int id = result.getInt("id_produkt");
@@ -46,10 +47,11 @@ public class ProductDAO {
 	}
 	
 	public Product getProduct(int id) {
-		result = ControllerServlet.manager.getQuerryResponse("SELECT * FROM produkty WHERE id_produkt="+id);
+		result = dbManager.getQuerryResponse("SELECT * FROM produkty WHERE id_produkt="+id);
 		Product produkt;
 		try {
-			produkt = new Product(result.getInt("id"), result.getString("nazwa"), result.getInt("kategoria_id"), result.getInt("marka_id"), result.getFloat("cena"));
+			result.next();
+			produkt = new Product(result.getInt("id_produkt"), result.getString("nazwa"), result.getInt("kategoria_id"), result.getInt("marka_id"), result.getFloat("cena"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			produkt = null;

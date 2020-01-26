@@ -5,10 +5,10 @@ import java.sql.Statement;
 
 public class UserDAO {
 
-	
+	DbManager dbManager = DbManager.getInstance();
 	static ResultSet rs = null;
 	
-	public static UserBean login(UserBean bean) {
+	public UserBean login(UserBean bean) {
 
 		Statement stmt = null;
 		
@@ -23,7 +23,7 @@ public class UserDAO {
 	                        + "'";
 		   try 
 		      {
-		         rs = ControllerServlet.manager.getQuerryResponse(searchQuery);
+		         rs = dbManager.getQuerryResponse(searchQuery);
 		         boolean more = rs.next();
 		         
 			       
@@ -71,13 +71,13 @@ public class UserDAO {
 		return bean;
 	}
 	
-	public static void register(UserBean bean) {
+	public void register(UserBean bean) {
 		String Query =
 	               "INSERT INTO uzytkownicy (login, pass, imie, nazwisko, nr_tel, ulica, miasto, kod_pocztowy, nr_domu, e_mail) "
 	               + "values('" + bean.getLogin() + "','" + bean.getPass() + "','"  + bean.getImie() + "','"  + bean.getNazwisko() + "','" 
 	            		   + bean.getNr_tel() + "','" + bean.getUlica() + "','" + bean.getMiasto() + "','" + bean.getKod_pocztowy() + "','" +
 	            		   bean.getNr_domu() + "','" + bean.getE_mail() + "')";
-		ControllerServlet.manager.executeUpdate(Query);
+		dbManager.executeUpdate(Query);
 	             
 	}
 }

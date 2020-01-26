@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
+	<c:set var = "product" scope = "request" value = "${product}"/>
 	<div class="w3-cell-row">	
    		<jsp:include page="headers.jsp"/>
    	</div>

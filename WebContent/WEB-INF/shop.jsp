@@ -20,7 +20,7 @@
 		   <div class="w3-cell w3-bar-block" style="width:20%">
 				<form action=shop method="get" name="kategorie">
 					<input class="w3-bar-item w3-button w3-cyan" type="button" value="Procesory" name="procesory" onClick="procki()">
-					<input class="w3-bar-item w3-button w3-cyan" type="button" value="Karty graficzne" name="karty" onClick="karty()">
+					<input class="w3-bar-item w3-button w3-cyan" type="button" value="Karty graficzne" name="karty" onClick="grafa()">
 					<input class="w3-bar-item w3-button w3-cyan" type="button" value="Plyty glowne" name="plyty" onClick="plytki()">
 					<input class="w3-bar-item w3-button w3-cyan" type="button" value="Pamieci Ram" name="Ram" onClick="ramy()">
 					<input class="w3-bar-item w3-button w3-cyan" type="button" value="Obudowy" name="Obudowy" onClick="obudowy()">
@@ -29,23 +29,26 @@
 			   	</form>
 			</div>
 			<div class="w3-container w3-cell">
-				<table class="w3-table w3-striped w3-border">
-					<tr>
-					  <th></th>
-					  <th>Nazwa</th>
-					  <th>Cena</th>
-					  <th></th>
-					</tr>
-					<c:forEach items="${products}" var="product">
+				<form action=product method="get" name="produkty">
+					<table class="w3-table w3-striped w3-border">
 						<tr>
-							<td> <img src="<c:out value="${product.name}"></c:out>" class="w3-border w3-padding" alt="<c:out value="${product.name}"></c:out>"> </td>
-							<td> <c:out value="${product.name}"></c:out></td>
-							<td> <c:out value="${product.price}"></c:out> </td>
-							<td> <input type="button" class="w3-button w3-round-large" value="Więcej" name="<c:out value="${product.name}"></c:out>">
-							<td> <input type="button" class="w3-button w3-round-large" value="Dodaj do koszyka" name="<c:out value="${product.name}"></c:out>"> </td>
-						</tr>	
-				   	</c:forEach>
-				</table>
+						  <th></th>
+						  <th>Nazwa</th>
+						  <th>Cena</th>
+						  <th></th>
+						</tr>
+						<c:forEach items="${products}" var="product">
+							<tr>
+								<td> <img src="<c:out value="${product.name}"></c:out>" class="w3-border w3-padding" alt="<c:out value="${product.name}"></c:out>"> </td>
+								<td> <c:out value="${product.name}"></c:out></td>
+								<td> <c:out value="${product.price}"></c:out> </td>
+								<td> <input type="button" class="w3-button w3-round-large" onClick="produkt(${product.id})" value="Więcej" name="<c:out value="${product.name}"></c:out>">
+								<td> <input type="button" class="w3-button w3-round-large" value="Dodaj do koszyka" name="<c:out value="${product.name}"></c:out>"> </td>
+							</tr>	
+					   	</c:forEach>
+					   	<INPUT TYPE="HIDDEN" NAME="product">
+					</table>
+				</form>
 			</div>
 		</div>
 		<SCRIPT>
@@ -53,7 +56,7 @@
         	document.kategorie.category.value = "2"
         	kategorie.submit();
         }
-        function karty(){
+        function grafa(){
         	document.kategorie.category.value = "1"
         	kategorie.submit();
         }
@@ -62,7 +65,7 @@
         	kategorie.submit();
         }
         function ramy(){
-        	document.kategorie.kategoria.value = "4"
+        	document.kategorie.category.value = "4"
         	kategorie.submit();
         }
         function obudowy(){
@@ -72,6 +75,10 @@
         function zasilacze(){
         	document.kategorie.category.value = "6"
         	kategorie.submit();
+        }
+        function produkt(id){
+        	document.produkty.product.value = id
+        	produkty.submit();
         }
     	</SCRIPT>
 	</body>

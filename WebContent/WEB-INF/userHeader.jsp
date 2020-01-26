@@ -4,7 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8"></head>
+<meta charset="UTF-8">
+<title>X-Moreltronik</title>
+</head>
 <body>
 	<header class="w3-container w3-cell w3-teal ">
 		<a href="index.jsp" class="w3-bar-item w3-button">Strona główna</a>	

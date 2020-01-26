@@ -7,16 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DbManager {
-
+	
+	private static DbManager single_instance = null; 
 	private String user, pass;
 	private Connection conn;
 	
-	DbManager(String user, String pass){
-		this.user = user;
-		this.pass = pass;
-	}
-	
-	DbManager(){
+	 private DbManager(){
 		this.user = "Dg3jCj0JRD";
 		this.pass = "bHPu8tQZqy";
 		try {
@@ -29,6 +25,13 @@ public class DbManager {
 		}
 	}
 	
+	 public static DbManager getInstance() 
+	    { 
+	        if (single_instance == null) 
+	            single_instance = new DbManager(); 
+	  
+	        return single_instance; 
+	    } 
 	
 	public Connection getConnection() {
 		try {

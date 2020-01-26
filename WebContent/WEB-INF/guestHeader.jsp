@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>X-Moreltronik</title>
 </head>
 <body>
 	<header class="w3-container w3-cell w3-teal ">
