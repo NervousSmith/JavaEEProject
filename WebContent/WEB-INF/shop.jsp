@@ -9,7 +9,6 @@
 <html>
    <head>
    	  <meta charset="UTF-8">
-      <title>Sklep</title>
       <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
    </head>
    <body>
@@ -39,11 +38,11 @@
 						</tr>
 						<c:forEach items="${products}" var="product">
 							<tr>
-								<td> <img src="<c:out value="${product.name}"></c:out>" class="w3-border w3-padding" alt="<c:out value="${product.name}"></c:out>"> </td>
+								<td> <img src="<c:out value="${product.name}.jpg" ></c:out>" class="w3-border w3-padding" alt="<c:out value="${product.name}"></c:out>"> </td>
 								<td> <c:out value="${product.name}"></c:out></td>
 								<td> <c:out value="${product.price}"></c:out> </td>
-								<td> <input type="button" class="w3-button w3-round-large" onClick="produkt(${product.id})" value="Więcej" name="<c:out value="${product.name}"></c:out>">
-								<td> <input type="button" class="w3-button w3-round-large" value="Dodaj do koszyka" name="<c:out value="${product.name}"></c:out>"> </td>
+								<td> <input type="button" class="w3-button w3-round-large" onClick="produkt(${product.id})" value="Więcej" name="<c:out value="${product.name}"></c:out>"></td>
+								<td> <input type="button" class="w3-button w3-round-large" onClick="koszyk(${product.id})" value="Dodaj do koszyka" name="<c:out value="${product.name}"></c:out>"> </td>
 							</tr>	
 					   	</c:forEach>
 					   	<INPUT TYPE="HIDDEN" NAME="product">
@@ -51,6 +50,9 @@
 				</form>
 			</div>
 		</div>
+		<form action=shop method="post" name="cart">
+			<INPUT TYPE="HIDDEN" NAME="id">
+		</form>
 		<SCRIPT>
         function procki(){
         	document.kategorie.category.value = "2"
@@ -79,6 +81,10 @@
         function produkt(id){
         	document.produkty.product.value = id
         	produkty.submit();
+        }
+        function koszyk(id){
+        	document.cart.id.value = id
+        	cart.submit();
         }
     	</SCRIPT>
 	</body>

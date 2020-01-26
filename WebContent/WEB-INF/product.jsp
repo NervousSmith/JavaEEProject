@@ -16,7 +16,7 @@
    	</div>
 	<div class="w3-cell-row"> 
 		<div class="w3-cell">
-			<img src="<c:out value="${product.name}"></c:out>" class="w3-border w3-padding" alt="<c:out value="${product.name}"></c:out>">
+			<img src="<c:out value="${product.name}.jpg" ></c:out>" class="w3-border w3-padding" alt="<c:out value="${product.name}"></c:out>">
 		</div>
 		<div class="w3-cell">
 			<div class="w3-cell-row"> 

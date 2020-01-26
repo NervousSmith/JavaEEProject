@@ -17,7 +17,8 @@ import javax.servlet.http.HttpSession;
 				"/shop",
 				"/register",
 				"/product",
-				"/checkout"
+				"/checkout",
+				"/cart"
 				}
 )
 public class ControllerServlet extends HttpServlet {
@@ -27,12 +28,31 @@ public class ControllerServlet extends HttpServlet {
     	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	
     	String userPath = req.getServletPath();
+    	HttpSession session = req.getSession(true);
     	
     	if(userPath.equals("/login")) {
-    		login(req, resp);
+    		login(req, resp, session);
+    		return;
     	}
-    	if(userPath.equals("/register")) {
+    	else if(userPath.equals("/register")) {
     		register(req, resp);
+    		return;
+    	}
+    	else if(userPath.equals("/cart")) {
+    		
+    	}
+    	else if(userPath.equals("/shop")) {
+    		Cart cart;
+    		String pro = req.getParameter("id").toString();
+    		int id = Integer.parseInt(pro);
+    		if(session.getAttribute("cart") != null) {
+    			cart = (Cart) session.getAttribute("cart");
+    			addToCart(id, cart, session);
+    		}
+    		else if(session.getAttribute("cart") == null) {
+    			cart = new Cart();
+    			addToCart(id, new Cart(), session);
+    		}
     	}
     	
 
@@ -44,7 +64,7 @@ public class ControllerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	
     	String userPath = req.getServletPath();
-    
+    	HttpSession session = req.getSession(true);
     	
     	if(userPath.equals("/login")) {
     		
@@ -67,22 +87,32 @@ public class ControllerServlet extends HttpServlet {
     		showProduct(req, resp, Integer.parseInt(pro));
     	}
     	
+    	else if(userPath.equals("/cart")) {
+    		if(session.getAttribute("cart") != null) {
+    		Cart cart = (Cart) session.getAttribute("cart");
+    		req.setAttribute("cartList", cart.getProducts());
+    		}
+    		else if(session.getAttribute("cart") == null) {
+    			
+    		}
+    	}
+    	
+    	
     	String url = "/WEB-INF" + userPath + ".jsp";
     	req.getRequestDispatcher(url).forward(req, resp);
     }	
     
     
-    private void login(HttpServletRequest req, HttpServletResponse resp) {
+    private void login(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
     	UserDAO dao = new UserDAO();
     	try {
 			UserBean user = new UserBean();
 			user.setLogin(req.getParameter("login"));
 			user.setPass(req.getParameter("password"));
-			
 			user = dao.login(user);
 			
 			if(user.isValid()) {
-				HttpSession session = req.getSession(true);
+				
 				session.setAttribute("currentSessionUser", user);
 				req.getRequestDispatcher("index.jsp").forward(req, resp);
 			}
@@ -143,5 +173,11 @@ public class ControllerServlet extends HttpServlet {
        	catch (Exception e) {
         		
        	}
+    }
+    
+    private void addToCart(int id, Cart cart, HttpSession session) {
+    	ProductDAO dao = new ProductDAO();
+    	cart.addToCart(dao.getProduct(id));
+    	session.setAttribute("cart", cart);
     }
 }

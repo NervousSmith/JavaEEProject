@@ -4,12 +4,11 @@
 <html>
 	<head>
 	<meta charset="UTF-8">
-		<title>Rejestracja</title>
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	</head>
 	<body>
 		<div class="w3-cell-row">	
-			<jsp:include page="guestHeader.jsp"/>
+			<jsp:include page="headers.jsp"/>
 		</div>
 		<form method="post" class="w3-container w3-card-4" >
 			<div class="w3-cell-row">
