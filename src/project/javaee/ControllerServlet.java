@@ -53,6 +53,8 @@ public class ControllerServlet extends HttpServlet {
     			cart = new Cart();
     			addToCart(id, new Cart(), session);
     		}
+    		resp.sendRedirect("/shop");
+    		return;
     	}
     	
 
@@ -166,9 +168,8 @@ public class ControllerServlet extends HttpServlet {
        	newUser.setNr_domu(req.getParameter("nr_domu"));       	
         try {
         	dao.register(newUser);
-        	HttpSession session = req.getSession(true);
-        	session.setAttribute("currentSessionUser", newUser);
-        	req.getRequestDispatcher("login.jsp").forward(req, resp);
+        	resp.sendRedirect("/login");
+        	return;
         }
        	catch (Exception e) {
         		
