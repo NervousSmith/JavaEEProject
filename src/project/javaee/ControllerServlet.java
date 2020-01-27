@@ -34,13 +34,16 @@ public class ControllerServlet extends HttpServlet {
     		login(req, resp, session);
     		return;
     	}
+    	
     	else if(userPath.equals("/register")) {
     		register(req, resp);
     		return;
     	}
+    	
     	else if(userPath.equals("/cart")) {
     		
     	}
+    	
     	else if(userPath.equals("/shop")) {
     		Cart cart;
     		String pro = req.getParameter("id").toString();
@@ -57,6 +60,10 @@ public class ControllerServlet extends HttpServlet {
     		return;
     	}
     	
+    	else if(userPath.equals("/checkout")) {
+    		Cart cart = (Cart) session.getAttribute("cart");
+    		checkout(req, resp, cart);
+    	}
 
     	String url = "/WEB-INF" + userPath + ".jsp";
     	req.getRequestDispatcher(url).forward(req, resp);
@@ -180,5 +187,10 @@ public class ControllerServlet extends HttpServlet {
     	ProductDAO dao = new ProductDAO();
     	cart.addToCart(dao.getProduct(id));
     	session.setAttribute("cart", cart);
+    }
+    
+    private void checkout(HttpServletRequest req, HttpServletResponse resp, Cart cart) {
+    	float price = cart.getFullPrice();
+    	req.setAttribute("price", price);
     }
 }
