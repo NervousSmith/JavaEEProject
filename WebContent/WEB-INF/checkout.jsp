@@ -29,7 +29,7 @@
 					<input class="w3-radio" type="radio" name="payment" value="cash">
 					<label>Przy odbiorze</label></p>
 					<p>
-					<input class="w3-radio" type="radio" name="payment" value="transfer">
+					<input class="w3-radio" type="radio" name="payment" value="transfer" checked>
 					<label>Przelew</label></p>
 				</div>
 			</div>
@@ -39,9 +39,9 @@
 					<label>Do zapłaty : <c:out value="${price}"></c:out> + koszt dostawy </label>
 				</div>
 				<div class="w3-cell">
-					<input type="submit" value="Płacę" class="w3-button w3-red w3-margin">
+					<input type="button" value="Płacę" class="w3-button w3-red w3-margin">
 				</div>
 			</div>
-		</form>	
+		</form>
 	</body>
 </html>

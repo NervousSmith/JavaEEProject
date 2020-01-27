@@ -29,10 +29,10 @@
 				</table>
 			</div>
 		</div>
-		<div lass="w3-cell-row w3-margin">
+		<div class="w3-cell-row w3-margin">
 			<div class="w3-cell">
-				<form action=checkout method="post">
-					<input type="button" value="Kupuje" class = "w3-button w3-red">
+				<form action=checkout method="post" name="kup">
+					<input type="submit" value="Kupuje" class = "w3-button w3-red">
 				</form>
 			</div>
 		</div>

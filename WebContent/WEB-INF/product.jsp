@@ -26,11 +26,20 @@
 			</div>
 			<div class="w3-cell-row"> 
 				<div class="w3-cell">
-					<button class="w3-button w3-round-large">Dodaj do koszyka</button>
+					<input type="button" class="w3-button w3-round-large" onClick="koszyk(${product.id})" value="Dodaj do koszyka">
 				</div>
 			</div>
 		</div>
 	</div>
+	<form action=shop method="post" name="cart">
+			<INPUT TYPE="HIDDEN" NAME="id">
+	</form>
+	<script type="text/javascript">
+	function koszyk(id){
+    	document.cart.id.value = id
+    	cart.submit();
+    }
+	</script>
 	<div class="w3-cell-row"> 
 		Lorem ipsum
 	</div>
