@@ -39,7 +39,7 @@
 					<label>Do zapłaty : <c:out value="${price}"></c:out> + koszt dostawy </label>
 				</div>
 				<div class="w3-cell">
-					<input type="button" value="Płacę" class="w3-button w3-red w3-margin">
+					<input type="submit" value="Płacę" class="w3-button w3-red w3-margin">
 				</div>
 			</div>
 		</form>

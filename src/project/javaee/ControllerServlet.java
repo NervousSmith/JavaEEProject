@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +22,8 @@ import javax.servlet.http.HttpSession;
 				"/product",
 				"/checkout",
 				"/cart",
-				"/pay"
+				"/pay",
+				"/mock"
 				}
 )
 public class ControllerServlet extends HttpServlet {
@@ -70,8 +73,12 @@ public class ControllerServlet extends HttpServlet {
     		else {
     			resp.sendRedirect("/login");
         		return;
-    		}
+    		}	
     	}
+    	
+    	else if(userPath.equals("/mock")) {
+			mock();
+		}
     	
     	else if(userPath.equals("/pay")) {
     		String payment = req.getParameter("payment");
@@ -233,5 +240,27 @@ public class ControllerServlet extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+    }
+    
+    private void mock(HttpServletRequest req, HttpServletResponse resp, Cart cart) {
+    	Random random = new Random();
+    	if(random.nextInt(100) > 10)
+    	{
+    		
+    		try {
+				resp.sendRedirect("index.jsp");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    		return;
+    	}
+    	else {
+    		try {
+				resp.sendRedirect("index.jsp");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    		return;
+    	}
     }
 }
