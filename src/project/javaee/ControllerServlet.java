@@ -246,6 +246,7 @@ public class ControllerServlet extends HttpServlet {
 				dbManager.executeUpdate("INSERT INTO zamowione_produkty (id_zamowienie, id_produktu, ilosc, cena) values ("
 						+ "'"+ id + "','" + cart.getProducts().get(i).getId() + "','" + 1 + "','" + cart.getProducts().get(i).getPrice() + "')");
 			}
+			cart.clear();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
