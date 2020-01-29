@@ -25,4 +25,12 @@ public class Cart {
 	public void clear() {
 		lista = null;
 	}
+	
+	public float getFullPrice() {
+		float price = 0;
+		for(int i = 0; i<lista.size(); i++) {
+			price += lista.get(i).getPrice();
+		}
+		return price;
+	}
 }

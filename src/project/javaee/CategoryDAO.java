@@ -11,8 +11,7 @@ public class CategoryDAO {
 	
 	public List<Category> listCategories() throws SQLException {
         List<Category> listCategory = new ArrayList<>();
-       
-         
+
         try {
         
         	result = dbManager.getQuerryResponse("SELECT * FROM kategoria ORDER BY nazwa");

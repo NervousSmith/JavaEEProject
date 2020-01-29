@@ -35,14 +35,21 @@ public class UserDAO {
 			        
 		         else if (more) 
 		         {
-		        	 //if()
-		            String firstName = rs.getString("imie");
-		            String lastName = rs.getString("nazwisko");
-			     	
-		            System.out.println("Welcome " + firstName);
-		            bean.setImie(firstName);
-		            bean.setNazwisko(lastName);
-		            bean.setValid(true);
+		        	 
+		        	 String firstName = rs.getString("imie");
+		        	 String lastName = rs.getString("nazwisko");
+		        	 System.out.println("Welcome " + firstName);
+		        	 bean.setImie(firstName);
+		        	 bean.setNazwisko(lastName);
+		        	 bean.setValid(true);
+		        	 bean.setId_user(rs.getInt("id_user"));
+		        	 if(!firstName.equalsIgnoreCase("admin")) {
+		        		bean.setE_mail(rs.getString("e_mail"));
+		        		bean.setKod_pocztowy(rs.getString("kod_pocztowy"));
+				       	bean.setMiasto(rs.getString("miasto"));
+				       	bean.setNr_domu(rs.getString("nr_domu"));
+				        bean.setUlica(rs.getString("ulica"));
+		        	 }
 		         }
 		      } 
 

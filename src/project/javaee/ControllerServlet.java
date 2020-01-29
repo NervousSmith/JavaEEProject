@@ -1,8 +1,11 @@
 package project.javaee;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +21,9 @@ import javax.servlet.http.HttpSession;
 				"/register",
 				"/product",
 				"/checkout",
-				"/cart"
+				"/cart",
+				"/pay",
+				"/mock"
 				}
 )
 public class ControllerServlet extends HttpServlet {
@@ -34,13 +39,16 @@ public class ControllerServlet extends HttpServlet {
     		login(req, resp, session);
     		return;
     	}
+    	
     	else if(userPath.equals("/register")) {
     		register(req, resp);
     		return;
     	}
+    	
     	else if(userPath.equals("/cart")) {
     		
     	}
+    	
     	else if(userPath.equals("/shop")) {
     		Cart cart;
     		String pro = req.getParameter("id").toString();
@@ -57,6 +65,37 @@ public class ControllerServlet extends HttpServlet {
     		return;
     	}
     	
+    	else if(userPath.equals("/checkout")) {
+    		if(session.getAttribute("currentSessionUser") != null) {
+    			Cart cart = (Cart) session.getAttribute("cart");
+        		checkout(req, resp, cart);
+    		}
+    		else {
+    			resp.sendRedirect("/login");
+        		return;
+    		}	
+    	}
+    	
+    	else if(userPath.equals("/mock")) {
+    		UserBean user = (UserBean) session.getAttribute("currentSessionUser");
+    		mock(req, resp, user);
+    		return;
+		}
+    	
+    	else if(userPath.equals("/pay")) {
+    		String payment = req.getParameter("payment");
+    		UserBean user = (UserBean) session.getAttribute("currentSessionUser");
+    		Cart cart = (Cart) session.getAttribute("cart");
+    		if(payment.equalsIgnoreCase("cash")) {
+    			addOrderToDatabase(payment, user, cart, req, resp);
+    			req.getRequestDispatcher("index.jsp").forward(req, resp);
+				return;
+    		}else if(payment.equalsIgnoreCase("transfer")) {
+    			addOrderToDatabase(payment, user, cart, req, resp);
+    			resp.sendRedirect("payment.jsp");
+        		return;
+    		}
+    	}
 
     	String url = "/WEB-INF" + userPath + ".jsp";
     	req.getRequestDispatcher(url).forward(req, resp);
@@ -112,11 +151,11 @@ public class ControllerServlet extends HttpServlet {
 			user.setLogin(req.getParameter("login"));
 			user.setPass(req.getParameter("password"));
 			user = dao.login(user);
-			
 			if(user.isValid()) {
-				
 				session.setAttribute("currentSessionUser", user);
+				System.out.println(user.getId_user());
 				req.getRequestDispatcher("index.jsp").forward(req, resp);
+				return;
 			}
 			
 		}
@@ -180,5 +219,65 @@ public class ControllerServlet extends HttpServlet {
     	ProductDAO dao = new ProductDAO();
     	cart.addToCart(dao.getProduct(id));
     	session.setAttribute("cart", cart);
+    }
+    
+    private void checkout(HttpServletRequest req, HttpServletResponse resp, Cart cart) {
+    	float price = cart.getFullPrice();
+    	req.setAttribute("price", price);
+    }
+    
+    private void addOrderToDatabase(String payment, UserBean user, Cart cart, HttpServletRequest req, HttpServletResponse resp){
+    	ResultSet result;
+    	int status = 1;
+    	if(payment.equalsIgnoreCase("transfer")) {
+    		status = 1;
+    	}
+    	else if(payment.equalsIgnoreCase("cash")) {
+    		status = 2;
+    	}
+    	DbManager dbManager = DbManager.getInstance();
+    	dbManager.executeUpdate("INSERT INTO zamowienia (id_user, status_zam) values ((SELECT id_user FROM uzytkownicy WHERE id_user = '"+ user.getId_user() + "'),'"+ status +"')");
+    	result = dbManager.getQuerryResponse("SELECT id_zamowienie FROM zamowienia WHERE id_user = " + user.getId_user()+" ORDER BY id_zamowienie DESC LIMIT 1");
+    	try {
+			result.next();
+			int id = result.getInt("id_zamowienie");
+			req.setAttribute("id_zam", id);
+			for(int i = 0; i < cart.getProducts().size(); i++) {
+				dbManager.executeUpdate("INSERT INTO zamowione_produkty (id_zamowienie, id_produktu, ilosc, cena) values ("
+						+ "'"+ id + "','" + cart.getProducts().get(i).getId() + "','" + 1 + "','" + cart.getProducts().get(i).getPrice() + "')");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    private void mock(HttpServletRequest req, HttpServletResponse resp, UserBean user) {
+    	Random random = new Random();
+    	ResultSet result;
+    	DbManager dbManager = DbManager.getInstance();
+    	result = dbManager.getQuerryResponse("SELECT id_zamowienie FROM zamowienia WHERE id_user = " + user.getId_user()+" ORDER BY id_zamowienie DESC LIMIT 1");
+    	int id;
+    	if(random.nextInt(100) > 10)
+    	{
+    		try {
+    			result.next();
+    			id = result.getInt("id_zamowienie");
+    			dbManager.executeUpdate("UPDATE zamowienia SET status_zam = 2 WHERE id_zamowienie = "+ id);
+				resp.sendRedirect("index.jsp");
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+    		return;
+    	}
+    	else {
+    		try {
+				resp.sendRedirect("index.jsp");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    		return;
+    	}
     }
 }
