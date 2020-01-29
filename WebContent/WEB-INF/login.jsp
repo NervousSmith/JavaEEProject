@@ -18,9 +18,9 @@
 
 	<form action=login method="post" class="w3-container">
 		<label> Login: </label> 
-		<input class="w3-input" type="text" name="login"><br><br>
+		<input class="w3-input" type="text" name="login" required><br><br>
 		<label> Hasło: </label> 
-		<input class="w3-input" type="password" name="password"><br><br>
+		<input class="w3-input" type="password" name="password" required><br><br>
 		<input type="submit" name="Zaloguj" value="Zaloguj" class = "w3-button w3-blue">
 	</form>
 </div>

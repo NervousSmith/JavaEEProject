@@ -15,15 +15,6 @@
 		<form action=pay method="post" class="w3-container w3-card-4" >
 			<div class="w3-cell-row">
 				<div class="w3-cell">
-					<label>Sposób dostawy</label>
-					<select class="w3-select w3-margin" name="option">
-		  				<option value="1">Kurier + 20zł</option>
-		  				<option value="2">Paczkomat + 10 zł</option>
-				</select> 
-				</div>
-			</div>
-			<div class="w3-cell-row">
-				<div class="w3-cell">
 					<label>Rodzaj płatności</label>
 					<p>
 					<input class="w3-radio" type="radio" name="payment" value="cash">
@@ -36,7 +27,7 @@
 			
 			<div class="w3-cell-row w3-margin">
 				<div class="w3-cell">
-					<label>Do zapłaty : <c:out value="${price}"></c:out> + koszt dostawy </label>
+					<label>Do zapłaty : <c:out value="${price}"></c:out></label>
 				</div>
 				<div class="w3-cell">
 					<input type="submit" value="Płacę" class="w3-button w3-red w3-margin">
