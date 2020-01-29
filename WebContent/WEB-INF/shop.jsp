@@ -44,9 +44,9 @@
 								<td> <input type="button" class="w3-button w3-round-large" onClick="produkt(${product.id})" value="Więcej" name="<c:out value="${product.name}"></c:out>"></td>
 								<td> <input type="button" class="w3-button w3-round-large" onClick="koszyk(${product.id})" value="Dodaj do koszyka" name="<c:out value="${product.name}"></c:out>"> </td>
 							</tr>	
-					   	</c:forEach>
-					   	<INPUT TYPE="HIDDEN" NAME="product">
+					   	</c:forEach>	
 					</table>
+					<INPUT TYPE="HIDDEN" NAME="product">
 				</form>
 			</div>
 		</div>
